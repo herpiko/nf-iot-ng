@@ -10,6 +10,7 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ["$scope", "$rootScope", "$http", function($scope, $rootScope,  $http) {
+  $scope.theft = false;
   $rootScope.socket = io("http://128.199.95.141:2999");
   
   $rootScope.socket.on("whoareu", function(){
@@ -34,11 +35,14 @@ angular.module('myApp.view1', ['ngRoute'])
     console.log($scope.dht11Data);
   $scope.$apply();
   }
-
+  $rootScope.socket.on("image", function(data){
+    console.log(data);
+    $scope.image = "data:image/png;base64," + data;
+  })
   $rootScope.socket.on("message", function(data){
-    if (data.sensor == "dht11") {
-      updateDht11(data.data); 
-    }
+    console.log(data);
+    updateDht11(data); 
+    $scope.theft = data.theft;
   })
   $scope.labels = ["9","8","7","6","5","4","3","2","1","0"];
   $scope.series = ['Temperature', 'Humidity'];
@@ -50,6 +54,30 @@ angular.module('myApp.view1', ['ngRoute'])
     $http({
       method : "POST",
       url : "http://128.199.95.141:2999/api/led1?value=" + value
+    })
+    .success(function(data, status){
+      console.log(data);
+    })
+    .error(function(data, status){
+      console.log(data);
+    })
+  }
+  $scope.led2 = function(value){
+    $http({
+      method : "POST",
+      url : "http://128.199.95.141:2999/api/led2?value=" + value
+    })
+    .success(function(data, status){
+      console.log(data);
+    })
+    .error(function(data, status){
+      console.log(data);
+    })
+  }
+  $scope.camera = function(){
+    $http({
+      method : "POST",
+      url : "http://128.199.95.141:2999/api/image"
     })
     .success(function(data, status){
       console.log(data);

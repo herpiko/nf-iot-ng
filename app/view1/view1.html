@@ -1,12 +1,29 @@
-<div style="margin:15px;">
+<div style="margin:15px;" ng-class="{'theft':theft}">
   <h3>nf-iot-ng project</h3>
   <p>This is the partial for view 1.</p>
-  <h4>LED1</h4>
-  <button ng-click="led1(1)" style="width:100px;height:100px">ON</button>
-  <button ng-click="led1(0)" style="width:100px;height:100px">OFF</button>
-  <h4>DHT11 v2 (Temperature & Humidity)</h4>
-  <canvas height="50" id="line" class="chart chart-line" chart-data="dht11Data"
-    chart-labels="labels" chart-legend="true" chart-series="series"
-      chart-click="onClick" >
-      </canvas>
+  <div style="margin:10px;display:inline-block;">
+    <div style="margin:10px;display:inline-block;">
+      <h4>Lampu Ruang Tamu</h4>
+      <button ng-click="led1(1)" style="width:100px;height:100px">ON</button>
+      <button ng-click="led1(0)" style="width:100px;height:100px">OFF</button>
+    </div>
+    <div style="margin:10px;display:inline-block;">
+      <h4>Lampu Halaman</h4>
+      <button ng-click="led2(1)" style="width:100px;height:100px">ON</button>
+      <button ng-click="led2(0)" style="width:100px;height:100px">OFF</button>
+    </div>
+    <br>
+    <div style="margin:10px;display:inline-block;width:500px;">
+    <h4>DHT11 v2 (Temperature & Humidity)</h4>
+    <canvas height="100" id="line" class="chart chart-line" chart-data="dht11Data"
+      chart-labels="labels" chart-legend="true" chart-series="series"
+        chart-click="onClick" >
+        </canvas>
+    </div>
+  </div>
+  <div style="margin:10px;display:inline-block;vertical-align:top;">
+          <button ng-click="camera()">Get a picture</button>
+          <br>
+          <img style="width:600px"data-ng-src="{{image}}"/>
+  </div>
 </div>
